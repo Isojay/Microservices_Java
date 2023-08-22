@@ -13,14 +13,16 @@ public class InventoryService {
 
     private final InventoryRepo inventoryRepo;
 
-    public List<InventoryResponse> inStock(List<String > skuCode){
-       return inventoryRepo.findBySkuCodeIn(skuCode).stream()
+    public List<InventoryResponse> inStock(List<String> skuCode){
+      List<InventoryResponse> response = inventoryRepo.findBySkuCodeIn(skuCode).stream()
                .map(inventory ->
                     InventoryResponse.builder()
                             .skuCode(inventory.getSkuCode())
                             .inStock(inventory.getQuantity()>0)
                             .build()
         ).toList();
+
+        return response;
     }
 
 

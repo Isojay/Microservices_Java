@@ -20,11 +20,6 @@ public class OrderController {
         return "order Placed";
     }
 
-    @GetMapping("/text")
-    public  String hello(){
-        return "Hello this is form Inventory";
-    }
-
 
 
 
