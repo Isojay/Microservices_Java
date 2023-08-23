@@ -21,6 +21,7 @@
     <module>Product_Services</module>
       <module>serverDiscovery</module>
     <module>apiGateway</module>
+      <module>notificationService</module>
   </modules>
 
   <properties>
