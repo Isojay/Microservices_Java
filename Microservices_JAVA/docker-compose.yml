@@ -8,17 +8,17 @@ services:
       - "9411:9411"
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.0.1
+    image: confluentinc/cp-zookeeper
     container_name: zookeeper
     ports:
       - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
+#      ZOOKEEPER_TICK_TIME: 2000
 
-  broker:
-    image: confluentinc/cp-kafka:7.0.1
-    container_name: broker
+  kafka:
+    image: confluentinc/cp-kafka
+    container_name: kafka
     ports:
       - "9092:9092"
     depends_on:

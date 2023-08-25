@@ -46,7 +46,7 @@ public class OrderService {
 
         if (isInStock){
             orderRepo.save(order);
-//            kafkaTemplate.send("notificationTopic",new KafkaEvent(order.getOrdernumber()));
+            kafkaTemplate.send("notificationTopic",new KafkaEvent(order.getOrdernumber()));
         }else {
             throw new IllegalArgumentException("Product not Available in the Inventory");
         }
