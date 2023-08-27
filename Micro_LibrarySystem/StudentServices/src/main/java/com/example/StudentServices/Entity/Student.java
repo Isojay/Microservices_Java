@@ -1,9 +1,6 @@
 package com.example.StudentServices.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,9 +19,11 @@ public class Student {
     @Id
     private String sid;
 
-    @Column(name = "Student_id")
-    private String stdid;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
+    @Column(name="Enrollment_Yeat")
     private Year enroll;
 
     private String Faculty;
