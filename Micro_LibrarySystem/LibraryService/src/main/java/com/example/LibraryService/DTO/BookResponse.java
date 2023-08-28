@@ -18,6 +18,8 @@ public class BookResponse {
 
     private String genre;
 
+    private String imgName;
+
     private int published;
 
     private int available;

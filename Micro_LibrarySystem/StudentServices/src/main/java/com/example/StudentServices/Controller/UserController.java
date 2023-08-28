@@ -27,8 +27,8 @@ public class UserController {
         userService.save(userDTO);
     }
 
-    @GetMapping("/findByid/{id}")
-    public ResponseEntity<?> findByid(@PathVariable String id){
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<?> findById(@PathVariable String id){
         Optional<UserResponse> user = userService.findById(id);
         if (user.isPresent()){
             return ResponseEntity.ok(user);

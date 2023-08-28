@@ -41,6 +41,9 @@ public class User{
     @Column(name = "Last_Updated")
     private LocalDateTime updated;
 
+    private String addressCity;
+    private String addressCountry;
+
     @Column(unique = true)
     @NotEmpty
     private String email;

@@ -20,6 +20,17 @@ public class UserDTO {
     private String role;
     private String email;
     private boolean isEnabled;
+    private String forUser;
+    private String addressCity;
+    private String addressCountry;
+
+//    for Student
+
+    private String Faculty;
+
+    private String department;
+
+    private String position;
 
 
 }

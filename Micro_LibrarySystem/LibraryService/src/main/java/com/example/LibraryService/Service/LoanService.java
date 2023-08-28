@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -34,7 +33,7 @@ public class LoanService {
         book.setAvailable( book.getAvailable() - 1);
         bookService.loanDept(book);
         Book_Loan loan = Book_Loan.builder()
-                .lId(RandomService.generateCombo(5))
+                .lId(UtilService.generateCombo(5))
                 .studentId(loanDTO.getStudentId())
                 .book(bookService.findId(loanDTO.getBookId()).get())
                 .borrowedDate(LocalDateTime.now())

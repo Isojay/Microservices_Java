@@ -8,7 +8,10 @@ import com.example.LibraryService.Repo.BookRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,10 +21,12 @@ import java.util.Optional;
 public class BookService {
 
     private final BookRepo bookRepo;
+    public static String Uploaddir = "/home/blue/LBMS/Books";
+
     public void addBook(BookDTO bookDTO){
         log.info(bookDTO.getAuthor());
         Book book = Book.builder()
-                .bid(RandomService.generateCombo(5))
+                .bid(UtilService.generateCombo(5))
                 .author(bookDTO.getAuthor())
                 .title(bookDTO.getTitle())
                 .genre(bookDTO.getGenre())
@@ -30,6 +35,7 @@ public class BookService {
                 .build();
         bookRepo.save(book);
     }
+
 
     public List<BookResponse> findAll(){
 
@@ -42,6 +48,7 @@ public class BookService {
                         .genre(book.getGenre())
                         .published(book.getPublished())
                         .available(book.getAvailable())
+                        .imgName(book.getImgName())
                         .build())
                 .toList();
     }
@@ -53,8 +60,13 @@ public class BookService {
                 .genre(book.getGenre())
                 .published(book.getPublished())
                 .available(book.getAvailable())
+                .imgName(book.getImgName())
                 .build());
     }
+
+
+
+
     public Optional<Book> findId(String id){
         return bookRepo.findById(id);
     }
@@ -65,5 +77,31 @@ public class BookService {
 
     public void loanDept(Book copy) {
         bookRepo.save(copy);
+    }
+
+    public String addImg(MultipartFile file, String id) {
+
+        Optional<Book> book = bookRepo.findById(id);
+        if (book.isPresent()){
+            Book book1 = book.get();
+            if (file.isEmpty()) {
+                return "Empty";
+            }
+            String originalName = file.getOriginalFilename();
+            assert originalName != null;
+            String fileExtension = originalName.substring(originalName.lastIndexOf('.'));
+            String newName = id + fileExtension;
+            book1.setImgName(newName);
+            bookRepo.save(book1);
+            try {
+                File destFile = new File(Uploaddir + File.separator + newName);
+                file.transferTo(destFile);
+
+               return ("Success");
+            } catch (IOException e) {
+                return ("Error uploading image: " + e.getMessage());
+            }
+        }
+        return "Empty Id";
     }
 }

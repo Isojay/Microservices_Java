@@ -22,5 +22,15 @@ public class UserResponse {
     private LocalDateTime created;
     private LocalDateTime updated;
     private boolean isEnabled;
+    private String forUser;
+    private String addressCity;
+    private String addressCountry;
 
+//    for Student
+
+    private String Faculty;
+
+    private String department;
+
+    private String position;
 }
