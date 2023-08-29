@@ -15,7 +15,7 @@
     <name>Micro_LibrarySystem</name>
     <description>Micro_LibrarySystem</description>
     <modules>
-        <module>StudentServices</module>
+        <module>UserServices</module>
         <module>ApiGateway</module>
         <module>ServerDiscovery</module>
         <module>LibraryService</module>
