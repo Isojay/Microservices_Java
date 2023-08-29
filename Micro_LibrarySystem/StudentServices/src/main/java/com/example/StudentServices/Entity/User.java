@@ -1,5 +1,7 @@
 package com.example.StudentServices.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -41,7 +43,13 @@ public class User{
     @Column(name = "Last_Updated")
     private LocalDateTime updated;
 
+    @Column(name = "Image_Name")
+    private String imgName;
+
+    @Column(name = "City")
     private String addressCity;
+
+    @Column(name = "Country")
     private String addressCountry;
 
     @Column(unique = true)
@@ -51,8 +59,10 @@ public class User{
     private boolean isEnabled;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private Student student;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private Staff staff;
 }

@@ -38,34 +38,15 @@ public class BookService {
 
 
     public List<BookResponse> findAll(){
-
         return bookRepo.findAll()
                 .stream()
-                .map(book -> BookResponse.builder()
-                        .bid(book.getBid())
-                        .author(book.getAuthor())
-                        .title(book.getTitle())
-                        .genre(book.getGenre())
-                        .published(book.getPublished())
-                        .available(book.getAvailable())
-                        .imgName(book.getImgName())
-                        .build())
+                .map(this::mapToBookResponse)
                 .toList();
     }
 
     public Optional<BookResponse> findById(String id){
-        return bookRepo.findById(id).map(book -> BookResponse.builder()
-                .bid(book.getBid())
-                .title(book.getTitle())
-                .genre(book.getGenre())
-                .published(book.getPublished())
-                .available(book.getAvailable())
-                .imgName(book.getImgName())
-                .build());
+        return bookRepo.findById(id).map(this::mapToBookResponse);
     }
-
-
-
 
     public Optional<Book> findId(String id){
         return bookRepo.findById(id);
@@ -103,5 +84,33 @@ public class BookService {
             }
         }
         return "Empty Id";
+    }
+
+    public void editBook(BookDTO bookDTO) {
+
+        Book book = bookRepo.findById(bookDTO.getId()).get();
+        Book book1 = Book.builder()
+                .bid(book.getBid())
+                .author(bookDTO.getAuthor())
+                .title(bookDTO.getTitle())
+                .genre(bookDTO.getGenre())
+                .available(bookDTO.getAvailable())
+                .published(bookDTO.getPublished())
+                .build();
+        bookRepo.save(book1);
+
+    }
+
+    public BookResponse mapToBookResponse(Book book){
+        return BookResponse.builder()
+                .bid(book.getBid())
+                .author(book.getAuthor())
+                .title(book.getTitle())
+                .genre(book.getGenre())
+                .published(book.getPublished())
+                .available(book.getAvailable())
+                .imgName(book.getImgName())
+                .build();
+
     }
 }

@@ -7,21 +7,6 @@ import java.nio.file.Paths;
 import java.util.Random;
 
 public class UtilService {
-
-    public static void createDirectoryIfNeeded() {
-        String directoryPath = "/home/blue/LBMS/Books"; // Update this path
-        Path path = Paths.get(directoryPath);
-
-        if (!Files.exists(path)) {
-            try {
-                Files.createDirectories(path);
-                System.out.println("Directory created: " + directoryPath);
-            } catch (IOException e) {
-                System.err.println("Error creating directory: " + e.getMessage());
-            }
-        }
-    }
-
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final int MIN_NUMBER = 0; // Start with 0 to include 0 in the random numbers
     private static final int MAX_NUMBER = 9; // End with 9 for single-digit random numbers
@@ -43,7 +28,19 @@ public class UtilService {
         return randomString.toString();
     }
 
+    public static void createDirectoryIfNeeded() {
+        String directoryPath = "/home/blue/LBMS/Books"; // Update this path
+        Path path = Paths.get(directoryPath);
 
+        if (!Files.exists(path)) {
+            try {
+                Files.createDirectories(path);
+                System.out.println("Directory created: " + directoryPath);
+            } catch (IOException e) {
+                System.err.println("Error creating directory: " + e.getMessage());
+            }
+        }
+    }
 
 
 }

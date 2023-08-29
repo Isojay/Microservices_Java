@@ -1,21 +1,26 @@
 package com.example.StudentServices.Controller;
 
+import com.example.StudentServices.DTO.MsgResponse;
 import com.example.StudentServices.DTO.UserDTO;
 import com.example.StudentServices.DTO.UserResponse;
 import com.example.StudentServices.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/user")
+@RequestMapping("/api/admin/user")
 public class UserController {
 
     private final UserService userService;
+    MsgResponse msgResponse = new MsgResponse();
 
     @GetMapping
     public List<UserResponse> findAll(){
@@ -23,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping
-    public void addStudent(@RequestBody UserDTO userDTO){
+    public void addUser(@RequestBody UserDTO userDTO){
         userService.save(userDTO);
     }
 
@@ -44,6 +49,20 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void deleteIt(@PathVariable String id){
         userService.deleteById(id);
+    }
+
+    @PostMapping("/upByImg")
+    public ResponseEntity<?> upByimg(@RequestParam("file") MultipartFile file,
+                                     @RequestParam("id") String id) throws IOException {
+
+        String msg = userService.addImg(file,id);
+        if (Objects.equals(msg, "Success")){
+            msgResponse.setMessage("Image uploaded successfully");
+            return ResponseEntity.ok(msgResponse);
+        }else{
+            ResponseEntity.status(500).body(msg);
+        }
+        return null;
     }
 
 }

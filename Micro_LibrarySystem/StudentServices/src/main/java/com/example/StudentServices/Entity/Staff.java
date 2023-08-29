@@ -1,5 +1,6 @@
 package com.example.StudentServices.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +19,7 @@ public class Staff {
     private String id;
 
     @OneToOne
+    @JsonManagedReference
     @JoinColumn(name = "user_id")
     private User user;
 

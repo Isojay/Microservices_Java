@@ -37,8 +37,8 @@ public class BookController {
     }
 
     @PutMapping
-    public void editBook() {
-
+    public void editBook(@RequestBody BookDTO bookDTO) {
+        bookService.editBook(bookDTO);
     }
 
 
@@ -54,6 +54,5 @@ public class BookController {
             ResponseEntity.status(500).body(msg);
         }
         return null;
-
     }
 }

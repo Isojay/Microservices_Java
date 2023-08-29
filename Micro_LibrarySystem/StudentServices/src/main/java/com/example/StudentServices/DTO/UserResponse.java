@@ -1,11 +1,16 @@
 package com.example.StudentServices.DTO;
 
+import com.example.StudentServices.Entity.Staff;
+import com.example.StudentServices.Entity.Student;
+import com.example.StudentServices.Entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.Year;
+import java.util.Date;
 
 @Data
 @Builder
@@ -22,15 +27,10 @@ public class UserResponse {
     private LocalDateTime created;
     private LocalDateTime updated;
     private boolean isEnabled;
-    private String forUser;
     private String addressCity;
     private String addressCountry;
+    private String imgName;
+    private Student student;
+    private Staff staff;
 
-//    for Student
-
-    private String Faculty;
-
-    private String department;
-
-    private String position;
 }
