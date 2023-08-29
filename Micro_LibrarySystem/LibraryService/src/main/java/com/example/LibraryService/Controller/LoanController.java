@@ -19,7 +19,6 @@ import java.util.List;
 public class LoanController {
 
     private final LoanService loanService;
-    private final LogRepo logRepo;
 
     @PostMapping
     public ResponseEntity<?> loan(@RequestBody LoanDTO loanDTO){

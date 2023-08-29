@@ -9,9 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,10 +41,15 @@ public class BookController {
         bookService.editBook(bookDTO);
     }
 
+    @GetMapping("/byId")
+    public Optional<BookResponse> findById(@RequestParam("id") String id){
+
+        return bookService.findById(id);
+    }
 
     @PostMapping("/upByImg")
     public ResponseEntity<?> upByimg(@RequestParam("file") MultipartFile file,
-                                     @RequestParam("id") String id) throws IOException {
+                                     @RequestParam("id") String id) {
 
         String msg = bookService.addImg(file,id);
         if (Objects.equals(msg, "Success")){
