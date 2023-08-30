@@ -1,0 +1,45 @@
+
+used this to encode password
+
+
+If you encode a password in one place (e.g., during user registration) and want to decode or verify it in another place (e.g., during user login), you should follow a common practice in security, which is to **never decode a password**. Instead, you should always hash the provided password and compare it to the stored hashed password.
+
+Here's how you can do it:
+
+1. **Registration (Encoding):**
+
+   - During user registration, hash the user's password using a strong password hashing algorithm like BCrypt.
+
+   ```java
+   String plainTextPassword = "user_password";
+   String hashedPassword = BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+
+   // Store 'hashedPassword' in your database or user data store
+   ```
+
+2. **Login (Verification):**
+
+   - When a user tries to log in, retrieve the stored hashed password from your database for that user.
+
+   - Then, hash the provided login password using the same hashing algorithm and compare it with the stored hash.
+
+   ```java
+   // Retrieve the hashed password from your database for the user attempting to log in
+   String storedHashedPassword = ... // Retrieve from the database
+
+   // User-provided login password
+   String loginPassword = "user_login_password";
+
+   // Compare the stored hash with the hash of the login password
+   if (BCrypt.checkpw(loginPassword, storedHashedPassword)) {
+       // Passwords match; allow the user to log in
+       // ...
+   } else {
+       // Passwords do not match; deny access
+       // ...
+   }
+   ```
+
+This approach is secure because you never decode or retrieve the original password. Instead, you hash the user's provided login password and compare it to the stored hash. If they match, the passwords are the same, and access is granted; otherwise, access is denied.
+
+This practice is fundamental to password security and ensures that passwords remain protected even if your application's database is compromised.

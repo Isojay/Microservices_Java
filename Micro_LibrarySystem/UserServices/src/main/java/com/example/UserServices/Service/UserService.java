@@ -6,7 +6,7 @@ import com.example.UserServices.Entity.Role;
 import com.example.UserServices.Entity.Staff;
 import com.example.UserServices.Entity.Student;
 import com.example.UserServices.Entity.User;
-import com.example.UserServices.Repo.StaffRepo;
+import org.mindrot.jbcrypt.BCrypt;
 import com.example.UserServices.Repo.StudentRepo;
 import com.example.UserServices.Repo.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class UserService {
 
     private final UserRepo userRepo;
     private final StudentRepo studentRepo;
-    private final StaffRepo staffRepo;
+
     public static String Uploaddir = "/home/blue/LBMS/Users";
 
     public void save( UserDTO userDTO){
@@ -155,7 +155,7 @@ public class UserService {
                 .lname(userDTO.getLname())
                 .contact(userDTO.getContact())
                 .username(userDTO.getUsername())
-                .password(userDTO.getPassword())
+                .password(BCrypt.hashpw(userDTO.getPassword(), BCrypt.gensalt()))
                 .email(userDTO.getEmail())
                 .addressCity(userDTO.getAddressCity())
                 .addressCountry(userDTO.getAddressCountry())
