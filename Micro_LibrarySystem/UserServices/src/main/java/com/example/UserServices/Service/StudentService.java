@@ -1,11 +1,14 @@
 package com.example.UserServices.Service;
 
 import com.example.UserServices.DTO.StudentResponse;
+import com.example.UserServices.DTO.UserResponse;
 import com.example.UserServices.Entity.Student;
+import com.example.UserServices.Entity.User;
 import com.example.UserServices.Repo.StudentRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import com.example.UserServices.DTO.UserDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,11 +30,24 @@ public class StudentService {
     }
 
     private StudentResponse mapToStudentResponse(Student student) {
+        User user = student.getUser();
         return StudentResponse.builder()
                 .id(student.getSid())
                 .enroll(student.getEnroll())
                 .faculty(student.getFaculty())
-                .user(student.getUser())
+                .user(UserResponse.builder()
+                        .id(user.getId())
+                        .fname(user.getFname())
+                        .lname(user.getLname())
+                        .contact(user.getContact())
+                        .username(user.getUsername())
+                        .email(user.getEmail())
+                        .created(user.getCreated())
+                        .addressCity(user.getAddressCity())
+                        .updated(user.getUpdated())
+                        .addressCountry(user.getAddressCountry())
+                        .isEnabled(user.isEnabled())
+                        .build())
                 .build();
     }
 

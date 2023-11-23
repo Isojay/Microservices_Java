@@ -1,0 +1,8 @@
+/home/blue/Desktop/GIT_Microservices/Micro_LibrarySystem/AuthService/src/main/java/com/example/AuthService/Config/JwtService.java
+/home/blue/Desktop/GIT_Microservices/Micro_LibrarySystem/AuthService/src/main/java/com/example/AuthService/AuthServiceApplication.java
+/home/blue/Desktop/GIT_Microservices/Micro_LibrarySystem/AuthService/src/main/java/com/example/AuthService/Entity/User.java
+/home/blue/Desktop/GIT_Microservices/Micro_LibrarySystem/AuthService/src/main/java/com/example/AuthService/Entity/Role.java
+/home/blue/Desktop/GIT_Microservices/Micro_LibrarySystem/AuthService/src/main/java/com/example/AuthService/Config/SecurityConfig.java
+/home/blue/Desktop/GIT_Microservices/Micro_LibrarySystem/AuthService/src/main/java/com/example/AuthService/Auth/AuthController.java
+/home/blue/Desktop/GIT_Microservices/Micro_LibrarySystem/AuthService/src/main/java/com/example/AuthService/DTOs/UserDTO.java
+/home/blue/Desktop/GIT_Microservices/Micro_LibrarySystem/AuthService/src/main/java/com/example/AuthService/Config/JWTAuthenticationFilter.java

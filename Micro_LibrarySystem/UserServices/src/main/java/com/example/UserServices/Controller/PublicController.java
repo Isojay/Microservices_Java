@@ -1,11 +1,13 @@
 package com.example.UserServices.Controller;
 
+import com.example.UserServices.DTO.ChangePassDTO;
 import com.example.UserServices.DTO.MsgResponse;
 import com.example.UserServices.DTO.StudentResponse;
 import com.example.UserServices.DTO.UserDTO;
 import com.example.UserServices.Service.StudentService;
 import com.example.UserServices.Service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +34,6 @@ public class PublicController {
 
     @GetMapping("/findAll")
     public List<StudentResponse> findAll(){
-        System.out.println("here");
         return service.findAll();
     }
 
@@ -48,28 +49,27 @@ public class PublicController {
     }
 
     @GetMapping("/byId")
-    public StudentResponse getById(@RequestParam("id") String id){
+    public ResponseEntity<?> getById(@RequestParam("id") String id) {
         Optional<StudentResponse> userDTO = service.findById(id);
-        return userDTO.orElse(null);
+        if (userDTO.isPresent()) {
+            return ResponseEntity.ok(userDTO.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
     }
 
 
 
+
     @PutMapping("/changePass")
-    public ResponseEntity<?> changePass(@RequestBody UserDTO user,
-                                        @RequestParam("newPass") String newPass){
-        String message = userService.changePass(user,newPass);
+    public ResponseEntity<?> changePass(@RequestBody ChangePassDTO changePassDTO){
+        String message = userService.changePass(changePassDTO);
         if (Objects.equals(message, "Success")){
             msgResponse.setMessage("Password Sucessfully Changed");
             return ResponseEntity.ok(msgResponse);
         }else {
             return ResponseEntity.status(404).body(message);
         }
-    }
-
-    @GetMapping("/byUid")
-    public StudentResponse finByUid(@RequestParam("id") String id){
-        return service.findByUid(id);
     }
 
 }

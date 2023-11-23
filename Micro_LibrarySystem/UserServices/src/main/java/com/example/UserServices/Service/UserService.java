@@ -1,5 +1,6 @@
 package com.example.UserServices.Service;
 
+import com.example.UserServices.DTO.ChangePassDTO;
 import com.example.UserServices.DTO.UserDTO;
 import com.example.UserServices.DTO.UserResponse;
 import com.example.UserServices.Entity.Role;
@@ -63,15 +64,19 @@ public class UserService {
        userRepo.save(user1);
     }
 
-    public String changePass(UserDTO user, String newPass){
+    public String changePass(ChangePassDTO changePassDTO){
         try{
-            User user1 = userRepo.findById(user.getId()).get();
-            if(Objects.equals(user1.getPassword(), user.getPassword())){
-                user1.setPassword(newPass);
+            User user1 = userRepo.findById(changePassDTO.getId()).get();
+            if(Objects.equals(user1.getPassword(), changePassDTO.getNewPass())){
+                return "Password same as Previous";
+            }else{
+
+                user1.setPassword(changePassDTO.getNewPass());
+                userRepo.save(user1);
             }
             return "Success";
         }catch (Exception e){
-            log.error("I caught error",e.getMessage());
+            log.error("I caught error", e.getMessage());
             return e.getMessage();
         }
 
@@ -138,6 +143,8 @@ public class UserService {
                 .updated(user.getUpdated())
                 .addressCountry(user.getAddressCountry())
                 .isEnabled(user.isEnabled())
+                .student(user.getStudent())
+                .staff(user.getStaff())
                 .build();
     }
     

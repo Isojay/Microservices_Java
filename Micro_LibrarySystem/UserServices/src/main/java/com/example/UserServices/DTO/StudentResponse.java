@@ -17,7 +17,7 @@ public class StudentResponse {
     private String id;
     private Year enroll;
     private String faculty;
-    private User user;
+    private UserResponse user;
 
 
 }
